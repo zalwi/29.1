@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments :: head">
+</head>
+<body>
+<div th:replace="fragments :: header"></div>
+<div class="content">
+    <h1 style="text-align: center" class="mt-4">WSZYSTKIE AUKCJE</h1>
+
+    <form action="/auctions" method="get" th:object="${filters}">
+        <input type="text" placeholder="Tytuł aukcji" th:field="*{title}">
+        <input type="text" placeholder="Producent" th:field="*{carMaker}">
+        <input type="text" placeholder="Marka" th:field="*{carModel}">
+        <input type="text" placeholder="Kolor" th:field="*{color}">
+        <input type="submit" value="Filtruj" class="btn btn-primary"/>
+    </form>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>
+                <a href="/auctions?sort=title">
+                    Tytuł
+                </a>
+            </th>
+            <th>
+                <a href="/auctions?sort=price">
+                    Cena
+                </a>
+            </th>
+            <th>
+                <a href="/auctions?sort=color">
+                    Kolor
+                </a>
+            </th>
+            <th>
+                <a href="/auctions?sort=endDate">
+                    Do kiedy
+                </a>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="car: ${cars}">
+            <td th:text="${car.title}"></td>
+            <td th:text="|${car.price} zł|"></td>
+            <td th:text="${car.color}"></td>
+            <td th:text="|${car.endDate}|"></td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>
+</body>
+</html>
