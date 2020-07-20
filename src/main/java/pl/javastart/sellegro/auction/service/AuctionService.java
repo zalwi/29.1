@@ -77,4 +77,13 @@ public class AuctionService {
     public Page<Auction> getPaginatesAuctions(PageRequest pageable) {
         return auctionRepository.findAll(pageable);
     }
+
+    public Page<Auction> findAllForFiltersAndSort(AuctionFilters auctionFilters, PageRequest pageable) {
+        Specification<Auction> specification = Specification.where(null);
+        specification = addSpecification(specification, auctionFilters.getTitle(), "title");
+        specification = addSpecification(specification, auctionFilters.getCarModel(), "carModel");
+        specification = addSpecification(specification, auctionFilters.getCarMake(), "carMake");
+        specification = addSpecification(specification, auctionFilters.getColor(), "color");
+        return auctionRepository.findAll(specification, pageable);
+    }
 }
