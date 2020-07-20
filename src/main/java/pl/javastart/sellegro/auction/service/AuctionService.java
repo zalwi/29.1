@@ -1,6 +1,8 @@
 package pl.javastart.sellegro.auction.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -70,5 +72,9 @@ public class AuctionService {
 
     public List<Auction> findAllSortByColumnName(String columnName) {
         return auctionRepository.findAll(Sort.by(Sort.Direction.ASC, columnName));
+    }
+
+    public Page<Auction> getPaginatesAuctions(PageRequest pageable) {
+        return auctionRepository.findAll(pageable);
     }
 }

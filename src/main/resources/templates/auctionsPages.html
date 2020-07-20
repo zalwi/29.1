@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments :: head">
+</head>
+<body>
+<div th:replace="fragments :: header"></div>
+<div class="content">
+    <h1 style="text-align: center" class="mt-4">WSZYSTKIE AUKCJE - Paginacja aktywna</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>
+                <a href="/auctions?sort=title">
+                    Tytuł
+                </a>
+            </th>
+            <th>
+                <a href="/auctions?sort=price">
+                    Cena
+                </a>
+            </th>
+            <th>
+                <a href="/auctions?sort=color">
+                    Kolor
+                </a>
+            </th>
+            <th>
+                <a href="/auctions?sort=endDate">
+                    Do kiedy
+                </a>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="car: ${auctionList}">
+            <td th:text="${car.title}"></td>
+            <td th:text="|${car.price} zł|"></td>
+            <td th:text="${car.color}"></td>
+            <td th:text="|${car.endDate}|"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="row" th:fragment="pagination">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <nav aria-label="Pagination">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:each="pageNumber : ${pageNumbers}" >
+                    <a class="page-link" th:href="@{|/auctions/page/${pageNumber}|}" th:text=${pageNumber}>1</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+</body>
+</html>
