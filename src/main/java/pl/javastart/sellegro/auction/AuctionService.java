@@ -1,7 +1,10 @@
 package pl.javastart.sellegro.auction;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.comparator.Comparators;
+import pl.javastart.sellegro.auction.model.Auction;
+import pl.javastart.sellegro.auction.model.AuctionFilters;
+import pl.javastart.sellegro.auction.repository.AuctionRepository;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,17 +22,22 @@ import java.util.stream.Collectors;
 public class AuctionService {
 
     private List<Auction> auctions;
+    private AuctionRepository auctionRepository;
 
     private static final String[] ADJECTIVES = {"Niesamowity", "Jedyny taki", "IGŁA", "HIT", "Jak nowy",
             "Perełka", "OKAZJA", "Wyjątkowy"};
 
-    public AuctionService() {
+    @Autowired
+    public AuctionService(AuctionRepository auctionRepository) {
+        this.auctionRepository = auctionRepository;
         try {
             loadData();
         } catch (IOException e) {
             System.out.println("Error loading data: " + e.getMessage());
             e.printStackTrace();
         }
+        this.auctionRepository.findAll().stream()
+                .forEach(auction -> auctionRepository.updateTitleForAuction(auction.generateRandomTitle(), auction.getId()));
     }
 
     private void loadData() throws IOException {
@@ -60,22 +68,22 @@ public class AuctionService {
                 .collect(Collectors.toList());
     }
 
-    public List<Auction> findAllForFilters(AuctionFilters auctionFilters) {
-        return auctions.stream()
-                .filter(auction -> auctionFilters.getTitle() == null || auction.getTitle().toUpperCase().contains(auctionFilters.getTitle().toUpperCase()))
-                .collect(Collectors.toList());
-    }
-
-    public List<Auction> findAllSorted(String sort) {
-        Comparator<Auction> comparator = Comparator.comparing(Auction::getTitle);
-        if(sort.equals("title")) {
-            comparator = Comparator.comparing(Auction::getTitle);
-        } else if(sort.equals("price")) {
-            comparator = Comparator.comparing(Auction::getPrice);
-        }
-
-        return auctions.stream()
-                .sorted(comparator)
-                .collect(Collectors.toList());
-    }
+//    public List<Auction> findAllForFilters(AuctionFilters auctionFilters) {
+//        return auctions.stream()
+//                .filter(auction -> auctionFilters.getTitle() == null || auction.getTitle().toUpperCase().contains(auctionFilters.getTitle().toUpperCase()))
+//                .collect(Collectors.toList());
+//    }
+//
+//    public List<Auction> findAllSorted(String sort) {
+//        Comparator<Auction> comparator = Comparator.comparing(Auction::getTitle);
+//        if(sort.equals("title")) {
+//            comparator = Comparator.comparing(Auction::getTitle);
+//        } else if(sort.equals("price")) {
+//            comparator = Comparator.comparing(Auction::getPrice);
+//        }
+//
+//        return auctions.stream()
+//                .sorted(comparator)
+//                .collect(Collectors.toList());
+//    }
 }

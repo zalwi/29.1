@@ -4,13 +4,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import pl.javastart.sellegro.auction.AuctionService;
+import pl.javastart.sellegro.auction.repository.AuctionRepository;
 
 @Controller
 public class HomeController {
 
     private AuctionService auctionService;
+    private AuctionRepository auctionRepository;
 
-    public HomeController(AuctionService auctionService) {
+    public HomeController(AuctionService auctionService, AuctionRepository auctionRepository) {
+        this.auctionRepository = auctionRepository;
         this.auctionService = auctionService;
     }
 
