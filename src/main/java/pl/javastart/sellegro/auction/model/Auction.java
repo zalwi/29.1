@@ -39,20 +39,10 @@ public class Auction {
     }
 
     public String generateRandomTitle() {
-        String[] ADJECTIVES = {"Niesamowity", "Jedyny taki", "IGŁA", "HIT", "Jak nowy",
-                "Perełka", "OKAZJA", "Wyjątkowy"};
+        String[] ADJECTIVES = {"Niesamowity", "Jedyny taki", "IGŁA", "HIT", "Jak nowy", "Perełka", "OKAZJA", "Wyjątkowy"};
         Random random = new Random();
         String randomAdjective = ADJECTIVES[random.nextInt(ADJECTIVES.length)];
-
         return randomAdjective + " " + carMake + " " + carModel;
-    }
-
-    public void setTitle(String title) {
-        if (title == null) {
-            this.title = generateRandomTitle();
-        } else {
-            this.title = title;
-        }
     }
 
     @Override
