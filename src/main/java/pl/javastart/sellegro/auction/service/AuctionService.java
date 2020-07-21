@@ -38,10 +38,10 @@ public class AuctionService {
         List<Auction> allData = auctionRepository.findAll();
         for(Auction auction: allData){
             auction.setTitle(auction.generateRandomTitle());
-            System.out.println("teścik"); // do usuniecia
+            //System.out.println("teścik"); // do usuniecia
         }
-        System.err.println("Dane po modyfikacji tytułu aukcji: " + allData);
-        System.err.println("Czy Dodałem tytuły:" + !allData.isEmpty());
+//        System.err.println("Dane po modyfikacji tytułu aukcji: " + allData);
+//        System.err.println("Czy Dodałem tytuły:" + !allData.isEmpty());
         auctionRepository.saveAll(allData);
     }
 
@@ -67,7 +67,7 @@ public class AuctionService {
     }
 
     public List<Auction> find4MostExpensive() {
-        return auctionRepository.findTop4MostExpensive();
+        return auctionRepository.findTop4ByOrderByPriceDesc();
     }
 
     public List<Auction> findAllSortByColumnName(String columnName) {
@@ -80,10 +80,10 @@ public class AuctionService {
 
     public Page<Auction> findAllForFiltersAndSort(AuctionFilters auctionFilters, PageRequest pageable) {
         Specification<Auction> specification = Specification.where(null);
-        specification = addSpecification(specification, auctionFilters.getTitle(), "title");
-        specification = addSpecification(specification, auctionFilters.getCarModel(), "carModel");
-        specification = addSpecification(specification, auctionFilters.getCarMake(), "carMake");
-        specification = addSpecification(specification, auctionFilters.getColor(), "color");
+        specification = addSpecification(specification, "title", auctionFilters.getTitle());
+        specification = addSpecification(specification, "carModel", auctionFilters.getCarModel());
+        specification = addSpecification(specification, "carMake", auctionFilters.getCarMake());
+        specification = addSpecification(specification, "color", auctionFilters.getColor());
         return auctionRepository.findAll(specification, pageable);
     }
 }

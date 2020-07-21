@@ -7,15 +7,6 @@
 <div class="content">
     <h1 style="text-align: center" class="mt-4">WSZYSTKIE AUKCJE - Paginacja aktywna</h1>
 
-    <!-- Sprawdz czy dodac do pages informacje o sortowaniu! - żeby działało jednocześnie  -->
-    <form action="/auctions/pages" method="get" th:object="${filters}">
-        <input type="text" placeholder="Tytuł aukcji" th:field="*{title}">
-        <input type="text" placeholder="Producent" th:field="*{carMake}">
-        <input type="text" placeholder="Model" th:field="*{carModel}">
-        <input type="text" placeholder="Kolor" th:field="*{color}">
-        <input type="submit" value="Filtruj" class="btn btn-primary"/>
-    </form>
-
     <table class="table">
         <thead>
         <tr>
@@ -57,7 +48,7 @@
         <nav aria-label="Pagination">
             <ul class="pagination justify-content-center">
                 <li class="page-item" th:each="pageNumber : ${pageNumbers}" >
-                    <a class="page-link" th:href="@{'/auctions/pages?page=' + ${pageNumber}}" th:text=${pageNumber}>1</a>
+                    <a class="page-link" th:href="@{|/auctions/page/${pageNumber}|}" th:text=${pageNumber}>1</a>
                 </li>
             </ul>
         </nav>

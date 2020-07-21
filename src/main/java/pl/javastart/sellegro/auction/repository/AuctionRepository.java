@@ -11,6 +11,8 @@ import java.util.List;
 @Repository
 public interface AuctionRepository extends JpaRepository<Auction, Long>, JpaSpecificationExecutor<Auction> {
 
+    List<Auction> findTop4ByOrderByPriceDesc();
+
     @Query(value = "SELECT TOP 4 * FROM auction ORDER BY price DESC",  nativeQuery = true)
     List<Auction> findTop4MostExpensive();
 
