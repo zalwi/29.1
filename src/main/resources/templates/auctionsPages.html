@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments :: head">
+</head>
+<body>
+<div th:replace="fragments :: header"></div>
+<div class="content">
+    <h1 style="text-align: center" class="mt-4" th:text="${'Wszystkie aukcje - strona ' + currentPage}">WSZYSTKIE AUKCJE - Paginacja aktywna</h1>
+
+        <form th:action="@{/auctions/pages}" method="get">
+            <input type="text" placeholder="Tytuł aukcji" th:value="${filters.title}" name="title">
+            <input type="text" placeholder="Producent" th:value="${filters.carMake}" name="carMake">
+            <input type="text" placeholder="Model" th:value="${filters.carModel}" name="carModel">
+            <input type="text" placeholder="Kolor" th:value="${filters.color}" name="color">
+            <input type="text" placeholder="Sortowanie" th:value="${sortOption}" name="sort" hidden>
+            <input type="submit" value="Filtruj" class="btn btn-primary"/>
+        </form>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>
+                <a th:href="@{'/auctions/pages?page=' + ${currentPage} + '&sort=title'}">
+                    Tytuł
+                </a>
+            </th>
+            <th>
+                <a th:href="@{'/auctions/pages?page=' + ${currentPage} + '&sort=price'}">
+                    Cena
+                </a>
+            </th>
+            <th>
+                <a th:href="@{'/auctions/pages?page=' + ${currentPage} + '&sort=color'}">
+                    Kolor
+                </a>
+            </th>
+            <th>
+                <a th:href="@{'/auctions/pages?page=' + ${currentPage} + '&sort=endDate'}">
+                    Do kiedy
+                </a>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="car: ${auctionList}">
+            <td th:text="${car.title}"></td>
+            <td th:text="|${car.price} zł|"></td>
+            <td th:text="${car.color}"></td>
+            <td th:text="|${car.endDate}|"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="row" th:fragment="pagination">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <nav aria-label="Pagination">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:each="pageNumber : ${pageNumbers}" >
+                    <a class="page-link" th:href="@{/auctions/pages(page=${pageNumber},
+                                                                    sort=${sortOption},
+                                                                    title=${filters.title},
+                                                                    carMake=${filters.carMake},
+                                                                    carModel=${filters.carModel},
+                                                                    color=${filters.color})}" th:text=${pageNumber}>1</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+</body>
+</html>
