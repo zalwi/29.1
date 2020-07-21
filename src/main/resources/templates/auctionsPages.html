@@ -65,7 +65,14 @@
         <nav aria-label="Pagination">
             <ul class="pagination justify-content-center">
                 <li class="page-item" th:each="pageNumber : ${pageNumbers}" >
-                    <a class="page-link" th:href="@{'/auctions/pages?page=' + ${pageNumber} + '&sort=' + ${sortOption}}" th:text=${pageNumber}>1</a>
+<!--                    <a class="page-link" th:href="@{'/auctions/pages?page=' + ${pageNumber} + '&sort=' + ${sortOption}}" th:text=${pageNumber}>1</a>-->
+<!--                    <a class="page-link" th:href="@{/auctions/(page=${pageNumber},sort=${sortOption},filters=${filters})}" th:text=${pageNumber}>1</a>-->
+                    <a class="page-link" th:href="@{/auctions/pages(page=${pageNumber},
+                                                                    sort=${sortOption},
+                                                                    title=${filters.title},
+                                                                    carMake=${filters.carMake},
+                                                                    carModel=${filters.carModel},
+                                                                    color=${filters.color})}" th:text=${pageNumber}>1</a>
                 </li>
             </ul>
         </nav>
