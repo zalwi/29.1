@@ -7,14 +7,6 @@
 <div class="content">
     <h1 style="text-align: center" class="mt-4" th:text="${'Wszystkie aukcje - strona ' + currentPage}">WSZYSTKIE AUKCJE - Paginacja aktywna</h1>
 
-    <!-- Sprawdz czy dodac do pages informacje o sortowaniu! - żeby działało jednocześnie  -->
-<!--    <form th:action="@{'/auctions/pages?sort=' + ${sortOption}}" method="get" th:object="${filters}">-->
-<!--        <input type="text" placeholder="Tytuł aukcji" th:field="*{title}">-->
-<!--        <input type="text" placeholder="Producent" th:field="*{carMake}">-->
-<!--        <input type="text" placeholder="Model" th:field="*{carModel}">-->
-<!--        <input type="text" placeholder="Kolor" th:field="*{color}">-->
-<!--        <input type="submit" value="Filtruj" class="btn btn-primary"/>-->
-<!--    </form>-->
         <form th:action="@{/auctions/pages}" method="get">
             <input type="text" placeholder="Tytuł aukcji" th:value="${filters.title}" name="title">
             <input type="text" placeholder="Producent" th:value="${filters.carMake}" name="carMake">
@@ -65,8 +57,6 @@
         <nav aria-label="Pagination">
             <ul class="pagination justify-content-center">
                 <li class="page-item" th:each="pageNumber : ${pageNumbers}" >
-<!--                    <a class="page-link" th:href="@{'/auctions/pages?page=' + ${pageNumber} + '&sort=' + ${sortOption}}" th:text=${pageNumber}>1</a>-->
-<!--                    <a class="page-link" th:href="@{/auctions/(page=${pageNumber},sort=${sortOption},filters=${filters})}" th:text=${pageNumber}>1</a>-->
                     <a class="page-link" th:href="@{/auctions/pages(page=${pageNumber},
                                                                     sort=${sortOption},
                                                                     title=${filters.title},

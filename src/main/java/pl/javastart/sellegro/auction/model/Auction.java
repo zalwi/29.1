@@ -44,17 +44,4 @@ public class Auction {
         String randomAdjective = ADJECTIVES[random.nextInt(ADJECTIVES.length)];
         return randomAdjective + " " + carMake + " " + carModel;
     }
-
-    @Override
-    public String toString() {
-        return "Auction{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", carMake='" + carMake + '\'' +
-                ", carModel='" + carModel + '\'' +
-                ", color='" + color + '\'' +
-                ", price=" + price +
-                ", endDate=" + endDate +
-                '}';
-    }
 }

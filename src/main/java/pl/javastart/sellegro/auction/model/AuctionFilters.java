@@ -11,14 +11,4 @@ public class AuctionFilters {
     private String carMake;
     private String carModel;
     private String color;
-
-    @Override
-    public String toString() {
-        return "AuctionFilters{" +
-                "title='" + title + '\'' +
-                ", carMake='" + carMake + '\'' +
-                ", carModel='" + carModel + '\'' +
-                ", color='" + color + '\'' +
-                '}';
-    }
 }

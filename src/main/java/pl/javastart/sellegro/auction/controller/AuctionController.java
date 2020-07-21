@@ -26,39 +26,6 @@ public class AuctionController {
         this.auctionService = auctionService;
     }
 
-//    @GetMapping("/auctions")
-//    public String auctions(Model model,
-//                           @RequestParam(name = "sort") Optional<String> optionalSort,
-//                           AuctionFilters auctionFilters) {
-//
-//        System.out.println(auctionFilters);
-//        optionalSort.ifPresentOrElse(
-//                //columnName      -> {model.addAttribute("cars", auctionRepository.findAll(Sort.by(Sort.Direction.ASC, columnName)));},
-//                columnName -> {
-//                    model.addAttribute("cars", auctionService.findAllSortByColumnName(columnName));
-//                },
-//                () -> {
-//                    model.addAttribute("cars", auctionService.findAllWithSearchCriteria(auctionFilters));
-//                }
-//        );
-//        model.addAttribute("filters", auctionFilters);
-//        return "auctions";
-//    }
-
-//    @RequestMapping(value = "/auctions/page/{page}")
-//    public ModelAndView listAuctionsPageByPageOld(@PathVariable(name = "page") int page) {
-//        ModelAndView modelAndView = new ModelAndView("auctionsPages_old");
-//        PageRequest pageable = PageRequest.of(page - 1, 50);
-//        Page<Auction> auctionPage = auctionService.getPaginatesAuctions(pageable);
-//        int totalPages = auctionPage.getTotalPages();
-//        if (totalPages > 0) {
-//            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
-//            modelAndView.addObject("pageNumbers", pageNumbers);
-//        }
-//        modelAndView.addObject("auctionList", auctionPage.getContent());
-//        return modelAndView;
-//    }
-
     @GetMapping("/auctions/pages")
     public String listAuctionsPageByPage(Model model,
                                           @RequestParam(name = "page", defaultValue = "1") int page,
